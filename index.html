@@ -3,43 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gattino che fa GRGRGRGRGR</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            margin: 0;
-            overflow: hidden;
-            font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f9f9fb 0%, #e8f0fe 100%);
-            height: 100vh;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-
-        #click-area {
-            position: fixed;
-            inset: 0;
-            cursor: pointer;
-        }
-
-        .title {
-            position: absolute;
-            top: 8%;
-            width: 100%;
-            text-align: center;
-            color: #333;
-            font-size: clamp(1.6rem, 4.5vw, 2.8rem);
-            font-weight: 800;
-            text-shadow: 0 0 8px rgba(255,255,255,0.9);
-            pointer-events: none;
-          }
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auguri Speciali ✨😺</title>
+    <title>Auguri Speciali 💖</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -60,30 +24,36 @@
             cursor: pointer;
         }
 
-        h1 {
-            position: absolute;
-            top: 7%;
-            width: 100%;
-            text-align: center;
-            color: #ffffff;
-            font-weight: 800;
-            font-size: clamp(1.8rem, 5vw, 3rem);
-            text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 25px rgba(255,105,180,0.8);
+        /* Cornice di cuori che battono */
+        .heart-frame {
+            position: fixed;
+            inset: 20px;
             pointer-events: none;
-            padding: 0 1rem;
+            z-index: 5;
         }
 
-        .subtitle {
+        .heart-corner {
             position: absolute;
-            top: 17%;
-            width: 100%;
-            text-align: center;
-            color: #fffafc;
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            text-shadow: 0 0 8px rgba(0,0,0,0.2);
-            pointer-events: none;
-            padding: 0 1rem;
+            width: 40px;
+            height: 40px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
         }
+
+        .heart-top-left { top: 0; left: 0; }
+        .heart-top-right { top: 0; right: 0; transform: rotate(90deg); }
+        .heart-bottom-left { bottom: 0; left: 0; transform: rotate(-90deg); }
+        .heart-bottom-right { bottom: 0; right: 0; transform: rotate(180deg); }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .heart-top-left { animation-delay: 0s; }
+        .heart-top-right { animation-delay: 0.3s; }
+        .heart-bottom-left { animation-delay: 0.6s; }
+        .heart-bottom-right { animation-delay: 0.9s; }
 
         .cat-wrapper {
             position: absolute;
@@ -126,6 +96,7 @@
             transition: transform 0.2s ease-out;
             background: rgba(255,255,255,0.8);
             border: 2px solid white;
+            z-index: 20;
         }
 
         #cat:active { transform: scale(1.05); }
@@ -152,27 +123,54 @@
             z-index: 5;
         }
 
-        .flower {
+        .heart {
             position: absolute;
-            width: 70px;
-            height: 70px;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.9));
+            width: 30px;
+            height: 30px;
             pointer-events: none;
             z-index: 5;
+            filter: drop-shadow(0 0 8px rgba(255,105,180,0.8));
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ff1493;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            left: 15px;
+        }
+
+        .heart::after {
+            top: -15px;
+        }
+
+        .heart-inner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ff1493;
+            transform: rotate(45deg);
+            z-index: 2;
         }
 
         .message {
             position: absolute;
             color: #ffffff;
             font-weight: 800;
-            font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+            font-size: clamp(2rem, 6vw, 3rem);
             text-align: center;
-            text-shadow: 0 0 8px rgba(255,255,255,1), 0 0 20px rgba(255,105,180,0.9);
+            text-shadow: 0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,105,180,0.9);
             opacity: 0;
             pointer-events: none;
             z-index: 15;
-            width: 260px;
-            margin-left: -130px;
+            width: 300px;
+            margin-left: -150px;
         }
 
         .tap-hint {
@@ -245,15 +243,28 @@
             70% { opacity: 1; }
             100% { opacity: 0; display: none; }
         }
+
+        /* Rimuovi tutti i titoli e sottotitoli */
+        h1, .subtitle {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <!-- Notifica audio -->
     <div id="audioNotice" class="audio-notice">
-        🔇 Clicca per attivare l'audio
+        💖 Clicca per attivare l'audio
     </div>
 
-    <!-- Elementi audio con fonti alternative -->
+    <!-- Cornice di cuori che battono -->
+    <div class="heart-frame">
+        <div class="heart-corner heart-top-left">❤️</div>
+        <div class="heart-corner heart-top-right">❤️</div>
+        <div class="heart-corner heart-bottom-left">❤️</div>
+        <div class="heart-corner heart-bottom-right">❤️</div>
+    </div>
+
+    <!-- Elementi audio -->
     <audio id="clickSound" preload="auto">
         <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-sound-3080.mp3" type="audio/mpeg">
     </audio>
@@ -267,8 +278,7 @@
     </audio>
 
     <div id="click-area">
-        <h1>Auguri Speciali ✨</h1>
-        <p class="subtitle">Porta un sorriso a chi vuoi… tocca lo schermo o accarezza il gattino.</p>
+        <!-- Titoli rimossi -->
 
         <div class="cat-wrapper">
             <div class="cat-halo"></div>
@@ -364,8 +374,8 @@
                 }
 
                 explosionAt(centerX, centerY);
-                flowersAt(centerX, centerY);
-                showMessage(centerX, centerY, "Prrrr... 😺💖");
+                heartsAt(centerX, centerY);
+                showMessage(centerX, centerY, "AUGURI 💖");
             }
 
             // Download funzionante
@@ -379,13 +389,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auguri Speciali ✨😺</title>
+    <title>Auguri Speciali 💖</title>
     <style>
         ${document.querySelector('style').innerHTML}
     </style>
 </head>
 <body>
     ${document.getElementById('click-area').outerHTML}
+    <div class="heart-frame">
+        <div class="heart-corner heart-top-left">❤️</div>
+        <div class="heart-corner heart-top-right">❤️</div>
+        <div class="heart-corner heart-bottom-left">❤️</div>
+        <div class="heart-corner heart-bottom-right">❤️</div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"><\/script>
     <script>
         ${document.querySelector('script').innerHTML}
@@ -430,8 +446,8 @@
                     complete: () => {
                         ball.remove();
                         explosionAt(endX, endY);
-                        flowersAt(endX, endY);
-                        showMessage(endX, endY, "Auguri! 💫");
+                        heartsAt(endX, endY);
+                        showMessage(endX, endY, "AUGURI 💫");
                     }
                 });
             }
@@ -456,35 +472,49 @@
                 });
             }
 
-            function flowersAt(x, y) {
-                const petals = 12;
-                for (let i = 0; i < petals; i++) {
+            function heartsAt(x, y) {
+                const heartCount = 16;
+                for (let i = 0; i < heartCount; i++) {
                     setTimeout(() => {
-                        const flower = document.createElement("img");
-                        flower.classList.add("flower");
-                        flower.src = "https://cdn-icons-png.flaticon.com/512/4822/4822083.png";
-                        document.body.appendChild(flower);
+                        const heart = document.createElement("div");
+                        heart.classList.add("heart");
+                        
+                        const innerHeart = document.createElement("div");
+                        innerHeart.classList.add("heart-inner");
+                        heart.appendChild(innerHeart);
+                        
+                        document.body.appendChild(heart);
 
-                        const angle = (Math.PI * 2 * i) / petals;
-                        const distance = 80 + Math.random() * 100;
+                        const angle = (Math.PI * 2 * i) / heartCount;
+                        const distance = 100 + Math.random() * 120;
                         const finalX = x + Math.cos(angle) * distance;
                         const finalY = y + Math.sin(angle) * distance;
 
-                        flower.style.left = x + "px";
-                        flower.style.top = y + "px";
+                        heart.style.left = x + "px";
+                        heart.style.top = y + "px";
+
+                        // Colori casuali per i cuori
+                        const colors = ['#ff1493', '#ff69b4', '#ff85a2', '#ffb6c1', '#ff007f'];
+                        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                        
+                        heart.style.setProperty('--heart-color', randomColor);
+                        heart.querySelector('.heart-inner').style.background = randomColor;
+                        heart.querySelectorAll('::before, ::after').forEach(el => {
+                            el.style.background = randomColor;
+                        });
 
                         anime({
-                            targets: flower,
+                            targets: heart,
                             left: finalX,
                             top: finalY,
                             opacity: [1, 0],
-                            scale: [0.3, 1],
+                            scale: [0.5, 1.2],
                             rotate: Math.random() * 360,
                             easing: "easeOutExpo",
-                            duration: 2000,
-                            complete: () => flower.remove()
+                            duration: 2200,
+                            complete: () => heart.remove()
                         });
-                    }, i * 100);
+                    }, i * 80);
                 }
             }
 
@@ -499,17 +529,17 @@
                 anime({
                     targets: msg,
                     opacity: [0, 1],
-                    translateY: [20, -10],
-                    scale: [0.8, 1.1],
-                    duration: 1300,
+                    translateY: [20, -20],
+                    scale: [0.8, 1.2],
+                    duration: 1500,
                     easing: "easeOutBack",
                     complete: () => {
                         anime({
                             targets: msg,
                             opacity: [1, 0],
-                            translateY: [-10, -30],
-                            duration: 1200,
-                            delay: 900,
+                            translateY: [-20, -50],
+                            duration: 1500,
+                            delay: 1200,
                             easing: "easeInQuad",
                             complete: () => msg.remove()
                         });
