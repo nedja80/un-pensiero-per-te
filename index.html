@@ -34,3 +34,489 @@
             font-weight: 800;
             text-shadow: 0 0 8px rgba(255,255,255,0.9);
             pointer-events: none;
+          }
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auguri Speciali ✨😺</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top, #ffe9f7 0%, #ffb3d9 40%, #ff7fa3 100%);
+            height: 100vh;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #click-area {
+            position: fixed;
+            inset: 0;
+            cursor: pointer;
+        }
+
+        h1 {
+            position: absolute;
+            top: 7%;
+            width: 100%;
+            text-align: center;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 25px rgba(255,105,180,0.8);
+            pointer-events: none;
+            padding: 0 1rem;
+        }
+
+        .subtitle {
+            position: absolute;
+            top: 17%;
+            width: 100%;
+            text-align: center;
+            color: #fffafc;
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            text-shadow: 0 0 8px rgba(0,0,0,0.2);
+            pointer-events: none;
+            padding: 0 1rem;
+        }
+
+        .cat-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            z-index: 10;
+        }
+
+        .cat-halo {
+            position: absolute;
+            width: 160%;
+            height: 160%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.7), rgba(255,255,255,0));
+            filter: blur(2px);
+            pointer-events: none;
+        }
+
+        .main-icon {
+            width: min(190px, 50vw);
+            max-width: 220px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255,255,255,0.9), 0 0 40px rgba(255,155,200,1);
+            pointer-events: none;
+            border: 3px solid white;
+        }
+
+        #cat {
+            width: min(120px, 30vw);
+            max-width: 140px;
+            border-radius: 35%;
+            box-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 25px rgba(255,155,200,0.9);
+            cursor: pointer;
+            transition: transform 0.2s ease-out;
+            background: rgba(255,255,255,0.8);
+            border: 2px solid white;
+        }
+
+        #cat:active { transform: scale(1.05); }
+
+        .ball {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff, #ffe066, #ff9d00);
+            box-shadow: 0 0 10px #fff, 0 0 25px #ffe066, 0 0 45px #ff9d00;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .explosion {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,1), rgba(255,192,203,0.6), rgba(255,192,203,0));
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .flower {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.9));
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .message {
+            position: absolute;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+            text-align: center;
+            text-shadow: 0 0 8px rgba(255,255,255,1), 0 0 20px rgba(255,105,180,0.9);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 15;
+            width: 260px;
+            margin-left: -130px;
+        }
+
+        .tap-hint {
+            position: absolute;
+            bottom: 4%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #fff;
+            font-size: clamp(0.9rem, 2.8vw, 1.2rem);
+            opacity: 0.8;
+            animation: pulse 1.5s infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .tap-icon { font-size: 1.4em; }
+
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.4; }
+            50% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+            100% { transform: translateX(-50%) scale(1); opacity: 0.4; }
+        }
+
+        .download-btn {
+            position: absolute;
+            bottom: 11%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #ff7ac4, #ff5cb8);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(255,255,255,0.9), 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 0 20px rgba(255,255,255,1), 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .download-btn:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        .audio-notice {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #ff5cb8;
+            z-index: 1000;
+            animation: fadeOut 3s forwards;
+            display: none;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notifica audio -->
+    <div id="audioNotice" class="audio-notice">
+        🔇 Clicca per attivare l'audio
+    </div>
+
+    <!-- Elementi audio con fonti alternative -->
+    <audio id="clickSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-sound-3080.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="purrSound" preload="auto" loop>
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-cat-purring-close-1963.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="bgMusic" preload="auto" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-897.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="click-area">
+        <h1>Auguri Speciali ✨</h1>
+        <p class="subtitle">Porta un sorriso a chi vuoi… tocca lo schermo o accarezza il gattino.</p>
+
+        <div class="cat-wrapper">
+            <div class="cat-halo"></div>
+            <img class="main-icon" src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiByeD0iMTAwIiBmaWxsPSIjMjVEMjg2Ii8+CjxwYXRoIGQ9Ik0xNDAgODBDMTQwIDYyLjM5MzggMTA3LjYwNiAzMCA3MCAzMEMzMi4zOTM4IDMwIDAgNjIuMzkzOCAwIDEwMEMwIDExOC4zMjcgOS4zMjc1NiAxMzQuNjQ2IDI0IDE0NC40NDhWMTY2TDUxLjU1MiAxNTUuNTUyQzYwLjA3MzYgMTU4LjQ2MiA2OS41Mjc2IDE2MCA4MCAxNjBDMTE3LjYwNiAxNjAgMTUwIDEyNy42MDYgMTUwIDkwSDE0MFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik02MCA3MEM1NS41ODE3IDcwIDUyIDczLjU4MTcgNTIgNzhWOTBDNTIgOTQuNDE4MyA1NS41ODE3IDk4IDYwIDk4SDgyQzg2LjQxODMgOTggOTAgOTQuNDE4MyA5MCA5MFY3OEM5MCA3My41ODE3IDg2LjQxODMgNzAgODIgNzBINjBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K'">
+            <img id="cat" src="https://cdn-icons-png.flaticon.com/512/220/220236.png" alt="Gattino" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iNDIiIGZpbGw9IiNGRkYiLz4KPHBhdGggZD0iTTQwIDUwQzQwIDUyLjIwOTEgMzguMjA5MSA1NCAzNiA1NEMzMy43OTA5IDU0IDMyIDUyLjIwOTEgMzIgNTBDMzIgNDcuNzkwOSAzMy43OTA5IDQ2IDM2IDQ2QzM4LjIwOTEgNDYgNDAgNDcuNzkwOSA0MCA1MFoiIGZpbGw9IiMzMzMiLz4KPHBhdGggZD0iTTg4IDUwQzg4IDUyLjIwOTEgODYuMjA5MSA1NCA4NCA1NEM4MS43OTA5IDU0IDgwIDUyLjIwOTEgODAgNTBDODAgNDcuNzkwOSA4MS43OTA5IDQ2IDg0IDQ2Qzg2LjIwOTEgNDYgODggNDcuNzkwOSA4OCA1MFoiIGZpbGw9IiMzMzMiLz4KPHBhdGggZD0iTTYwIDcwQzY1LjUyMjggNzAgNzAgNjUuNTIyOCA3MCA2MEg1MEM1MCA2NS41MjI4IDU0LjQ3NzIgNzAgNjAgNzBaIiBmaWxsPSIjRkY2Rjc3Ii8+CjxwYXRoIGQ9Ik00NSA4MEM0NSA4Mi43NjE0IDQyLjc2MTQgODUgNDAgODVDMzcuMjM4NiA4NSAzNSA4Mi43NjE0IDM1IDgwQzM1IDc3LjIzODYgMzcuMjM4NiA3NSA0MCA3NUM0Mi43NjE0IDc1IDQ1IDc3LjIzODYgNDUgODBaIiBmaWxsPSIjRkY2Rjc3Ii8+CjxwYXRoIGQ9Ik04NSA4MEM4NSA4Mi43NjE0IDgyLjc2MTQgODUgODAgODVDNzcuMjM4NiA4NSA3NSA4Mi43NjE0IDc1IDgwQzc1IDc3LjIzODYgNzcuMjM4NiA3NSA4MCA3NUM4Mi43NjE0IDc1IDg1IDc3LjIzODYgODUgODBaIiBmaWxsPSIjRkY2Rjc3Ii8+Cjwvc3ZnPgo='">
+        </div>
+
+        <button id="downloadBtn" class="download-btn">
+            📥 Scarica questa sorpresa
+        </button>
+
+        <div class="tap-hint">
+            <span class="tap-icon">👆</span>
+            <span>tocca per iniziare</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const clickArea = document.getElementById("click-area");
+            const cat = document.getElementById("cat");
+            const clickSound = document.getElementById("clickSound");
+            const purrSound = document.getElementById("purrSound");
+            const bgMusic = document.getElementById("bgMusic");
+            const downloadBtn = document.getElementById("downloadBtn");
+            const audioNotice = document.getElementById("audioNotice");
+
+            // Mostra notifica audio
+            audioNotice.style.display = 'block';
+            setTimeout(() => {
+                audioNotice.style.display = 'none';
+            }, 3000);
+
+            // Gestione audio interattiva
+            let audioEnabled = false;
+            
+            function enableAudio() {
+                if (!audioEnabled) {
+                    audioEnabled = true;
+                    bgMusic.volume = 0.3;
+                    purrSound.volume = 0.4;
+                    clickSound.volume = 0.5;
+                    
+                    bgMusic.play().catch(e => console.log('Audio background pronto'));
+                    audioNotice.style.display = 'none';
+                }
+            }
+
+            // Abilita audio al primo click
+            document.addEventListener('click', enableAudio);
+            document.addEventListener('touchstart', enableAudio);
+
+            // Click area principale
+            clickArea.addEventListener("click", function(event) {
+                if (event.target === cat || event.target === downloadBtn) return;
+                enableAudio();
+                launchBall(event.clientX, event.clientY);
+            });
+
+            // Touch per mobile
+            clickArea.addEventListener("touchstart", function(event) {
+                if (event.target === cat || event.target === downloadBtn) return;
+                event.preventDefault();
+                const touch = event.touches[0];
+                enableAudio();
+                launchBall(touch.clientX, touch.clientY);
+            });
+
+            // Interazione con il gattino
+            cat.addEventListener("click", handleCatInteraction);
+            cat.addEventListener("touchstart", function(event) {
+                event.preventDefault();
+                handleCatInteraction();
+            });
+
+            function handleCatInteraction() {
+                enableAudio();
+                const rect = cat.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                anime({
+                    targets: cat,
+                    scale: [1, 1.08, 1],
+                    duration: 800,
+                    easing: "easeInOutQuad"
+                });
+
+                // Attiva le fusa
+                if (purrSound.paused) {
+                    purrSound.currentTime = 0;
+                    purrSound.play().catch(e => {});
+                }
+
+                explosionAt(centerX, centerY);
+                flowersAt(centerX, centerY);
+                showMessage(centerX, centerY, "Prrrr... 😺💖");
+            }
+
+            // Download funzionante
+            downloadBtn.addEventListener("click", function(event) {
+                event.stopPropagation();
+                enableAudio();
+                
+                // Crea il contenuto HTML completo
+                const htmlContent = `<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auguri Speciali ✨😺</title>
+    <style>
+        ${document.querySelector('style').innerHTML}
+    </style>
+</head>
+<body>
+    ${document.getElementById('click-area').outerHTML}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"><\/script>
+    <script>
+        ${document.querySelector('script').innerHTML}
+    <\/script>
+</body>
+</html>`;
+                
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'auguri-speciali.html';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            });
+
+            // Funzioni di animazione
+            function launchBall(endX, endY) {
+                if (audioEnabled) {
+                    clickSound.currentTime = 0;
+                    clickSound.play().catch(e => {});
+                }
+
+                const ball = document.createElement("div");
+                ball.classList.add("ball");
+                document.body.appendChild(ball);
+
+                const startX = window.innerWidth / 2;
+                const startY = window.innerHeight + 30;
+
+                ball.style.left = startX + "px";
+                ball.style.top = startY + "px";
+
+                anime({
+                    targets: ball,
+                    left: endX,
+                    top: endY,
+                    duration: 1100,
+                    easing: "easeOutQuad",
+                    complete: () => {
+                        ball.remove();
+                        explosionAt(endX, endY);
+                        flowersAt(endX, endY);
+                        showMessage(endX, endY, "Auguri! 💫");
+                    }
+                });
+            }
+
+            function explosionAt(x, y) {
+                const boom = document.createElement("div");
+                boom.classList.add("explosion");
+                boom.style.left = x + "px";
+                boom.style.top = y + "px";
+                document.body.appendChild(boom);
+
+                anime({
+                    targets: boom,
+                    width: [20, 250],
+                    height: [20, 250],
+                    marginLeft: ["-10px", "-125px"],
+                    marginTop: ["-10px", "-125px"],
+                    opacity: [0.9, 0],
+                    easing: "easeOutExpo",
+                    duration: 900,
+                    complete: () => boom.remove()
+                });
+            }
+
+            function flowersAt(x, y) {
+                const petals = 12;
+                for (let i = 0; i < petals; i++) {
+                    setTimeout(() => {
+                        const flower = document.createElement("img");
+                        flower.classList.add("flower");
+                        flower.src = "https://cdn-icons-png.flaticon.com/512/4822/4822083.png";
+                        document.body.appendChild(flower);
+
+                        const angle = (Math.PI * 2 * i) / petals;
+                        const distance = 80 + Math.random() * 100;
+                        const finalX = x + Math.cos(angle) * distance;
+                        const finalY = y + Math.sin(angle) * distance;
+
+                        flower.style.left = x + "px";
+                        flower.style.top = y + "px";
+
+                        anime({
+                            targets: flower,
+                            left: finalX,
+                            top: finalY,
+                            opacity: [1, 0],
+                            scale: [0.3, 1],
+                            rotate: Math.random() * 360,
+                            easing: "easeOutExpo",
+                            duration: 2000,
+                            complete: () => flower.remove()
+                        });
+                    }, i * 100);
+                }
+            }
+
+            function showMessage(x, y, text) {
+                const msg = document.createElement("div");
+                msg.classList.add("message");
+                msg.textContent = text;
+                msg.style.left = x + "px";
+                msg.style.top = y + "px";
+                document.body.appendChild(msg);
+
+                anime({
+                    targets: msg,
+                    opacity: [0, 1],
+                    translateY: [20, -10],
+                    scale: [0.8, 1.1],
+                    duration: 1300,
+                    easing: "easeOutBack",
+                    complete: () => {
+                        anime({
+                            targets: msg,
+                            opacity: [1, 0],
+                            translateY: [-10, -30],
+                            duration: 1200,
+                            delay: 900,
+                            easing: "easeInQuad",
+                            complete: () => msg.remove()
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
