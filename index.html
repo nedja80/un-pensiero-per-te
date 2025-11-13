@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auguri Speciali 💖</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         
         body {
             margin: 0;
@@ -24,39 +27,7 @@
             cursor: pointer;
         }
 
-        /* Cornice di cuori che battono */
-        .heart-frame {
-            position: fixed;
-            inset: 20px;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .heart-corner {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            animation: heartbeat 1.5s ease-in-out infinite;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
-            font-size: 35px;
-        }
-
-        .heart-top-left { top: 0; left: 0; }
-        .heart-top-right { top: 0; right: 0; }
-        .heart-bottom-left { bottom: 0; left: 0; }
-        .heart-bottom-right { bottom: 0; right: 0; }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-
-        .heart-top-left { animation-delay: 0s; }
-        .heart-top-right { animation-delay: 0.3s; }
-        .heart-bottom-left { animation-delay: 0.6s; }
-        .heart-bottom-right { animation-delay: 0.9s; }
-
-        .cat-wrapper {
+        .main-wrapper {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -65,42 +36,259 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 18px;
+            gap: 30px;
             z-index: 10;
         }
 
-        .cat-halo {
+        .heart-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heart-glow {
             position: absolute;
-            width: 160%;
-            height: 160%;
+            width: 200%;
+            height: 200%;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.7), rgba(255,255,255,0));
-            filter: blur(2px);
+            background: radial-gradient(circle, rgba(255,105,180,0.4), rgba(255,255,255,0));
+            filter: blur(20px);
             pointer-events: none;
+            animation: pulse-glow 2s ease-in-out infinite;
         }
 
-        .main-icon {
-            width: min(190px, 50vw);
-            max-width: 220px;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255,255,255,0.9), 0 0 40px rgba(255,155,200,1);
-            pointer-events: none;
-            border: 3px solid white;
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
         }
 
-        #cat {
-            width: min(120px, 30vw);
-            max-width: 140px;
-            border-radius: 35%;
-            box-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 25px rgba(255,155,200,0.9);
+        .big-heart {
+            font-size: clamp(120px, 25vw, 180px);
+            animation: heartbeat-big 1.2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255,105,180,0.8));
             cursor: pointer;
-            transition: transform 0.2s ease-out;
-            background: rgba(255,255,255,0.8);
-            border: 2px solid white;
-            z-index: 20;
+            z-index: 2;
         }
 
-        #cat:active { transform: scale(1.05); }
+        @keyframes heartbeat-big {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.15); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.15); }
+            56% { transform: scale(1); }
+        }
+
+        .cat-container {
+            position: relative;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .cat-illustration {
+            width: clamp(150px, 30vw, 220px);
+            height: clamp(150px, 30vw, 220px);
+            position: relative;
+        }
+
+        .cat-body {
+            position: absolute;
+            width: 100%;
+            height: 70%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2d2d2d;
+            border-radius: 50% 50% 40% 40%;
+            border: 3px solid #000;
+        }
+
+        .cat-head {
+            position: absolute;
+            width: 70%;
+            height: 55%;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #3a3a3a;
+            border-radius: 50% 50% 45% 45%;
+            border: 3px solid #000;
+        }
+
+        .cat-ear {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid #3a3a3a;
+            top: -15px;
+        }
+
+        .cat-ear-left {
+            left: 10%;
+            transform: rotate(-15deg);
+        }
+
+        .cat-ear-right {
+            right: 10%;
+            transform: rotate(15deg);
+        }
+
+        .cat-ear::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 20px solid #ff9ec6;
+            left: 50%;
+            top: 5px;
+            transform: translateX(-50%);
+        }
+
+        .cat-eye {
+            position: absolute;
+            width: 8px;
+            height: 2px;
+            background: #000;
+            border-radius: 50%;
+            top: 45%;
+        }
+
+        .cat-eye.sleeping {
+            height: 3px;
+            background: #000;
+            border-radius: 0;
+        }
+
+        .cat-eye-left {
+            left: 25%;
+        }
+
+        .cat-eye-right {
+            right: 25%;
+        }
+
+        .cat-nose {
+            position: absolute;
+            width: 12px;
+            height: 10px;
+            background: #000;
+            border-radius: 50% 50% 50% 50%;
+            top: 55%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cat-whisker {
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: #666;
+            top: 55%;
+        }
+
+        .whisker-left-1 {
+            left: -35px;
+            transform: rotate(-10deg);
+        }
+
+        .whisker-left-2 {
+            left: -35px;
+            transform: rotate(10deg);
+            top: 60%;
+        }
+
+        .whisker-right-1 {
+            right: -35px;
+            transform: rotate(10deg);
+        }
+
+        .whisker-right-2 {
+            right: -35px;
+            transform: rotate(-10deg);
+            top: 60%;
+        }
+
+        .cat-tail {
+            position: absolute;
+            width: 60px;
+            height: 15px;
+            background: #2d2d2d;
+            border: 3px solid #000;
+            border-radius: 50px;
+            bottom: 15%;
+            right: -30px;
+            transform: rotate(-30deg);
+            transform-origin: left center;
+        }
+
+        .cat-paw {
+            position: absolute;
+            width: 25px;
+            height: 30px;
+            background: #2d2d2d;
+            border: 2px solid #000;
+            border-radius: 50% 50% 40% 40%;
+            bottom: 0;
+        }
+
+        .paw-left {
+            left: 25%;
+        }
+
+        .paw-right {
+            right: 25%;
+        }
+
+        .zzz {
+            position: absolute;
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8), 2px 2px 0 #ff69b4;
+            font-weight: bold;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .zzz-1 {
+            top: -20px;
+            right: -20px;
+            animation: float-zzz 2s ease-in-out infinite;
+        }
+
+        .zzz-2 {
+            top: -40px;
+            right: -35px;
+            animation: float-zzz 2s ease-in-out infinite 0.4s;
+        }
+
+        .zzz-3 {
+            top: -60px;
+            right: -50px;
+            animation: float-zzz 2s ease-in-out infinite 0.8s;
+        }
+
+        @keyframes float-zzz {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        .active .zzz {
+            opacity: 1;
+        }
 
         .ball {
             position: absolute;
@@ -124,7 +312,6 @@
             z-index: 5;
         }
 
-        /* Cuori veri e propri */
         .heart-particle {
             position: absolute;
             font-size: 28px;
@@ -144,13 +331,23 @@
             opacity: 0;
             pointer-events: none;
             z-index: 15;
-            width: 300px;
-            margin-left: -150px;
+            white-space: nowrap;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+            box-shadow: 0 0 10px white;
         }
 
         .tap-hint {
             position: absolute;
-            bottom: 4%;
+            bottom: 5%;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -159,382 +356,345 @@
             color: #fff;
             font-size: clamp(0.9rem, 2.8vw, 1.2rem);
             opacity: 0.8;
-            animation: pulse 1.5s infinite;
+            animation: pulse-hint 1.5s infinite;
             pointer-events: none;
             z-index: 10;
+            text-shadow: 0 0 10px rgba(255,105,180,0.8);
         }
 
-        .tap-icon { font-size: 1.4em; }
+        .tap-icon {
+            font-size: 1.4em;
+        }
 
-        @keyframes pulse {
+        @keyframes pulse-hint {
             0% { transform: translateX(-50%) scale(1); opacity: 0.4; }
             50% { transform: translateX(-50%) scale(1.08); opacity: 1; }
             100% { transform: translateX(-50%) scale(1); opacity: 0.4; }
         }
-
-        .download-btn {
-            position: absolute;
-            bottom: 11%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 12px 24px;
-            border-radius: 999px;
-            border: none;
-            background: linear-gradient(135deg, #ff7ac4, #ff5cb8);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-            box-shadow: 0 0 15px rgba(255,255,255,0.9), 0 4px 10px rgba(0,0,0,0.2);
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .download-btn:hover {
-            transform: translateX(-50%) scale(1.05);
-            box-shadow: 0 0 20px rgba(255,255,255,1), 0 6px 15px rgba(0,0,0,0.3);
-        }
-
-        .download-btn:active {
-            transform: translateX(-50%) scale(0.95);
-        }
-
-        .audio-notice {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(255,255,255,0.9);
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #ff5cb8;
-            z-index: 1000;
-            animation: fadeOut 3s forwards;
-            display: none;
-        }
-
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            70% { opacity: 1; }
-            100% { opacity: 0; display: none; }
-        }
-
-        /* Rimuovi tutti i titoli e sottotitoli */
-        h1, .subtitle {
-            display: none;
-        }
     </style>
 </head>
 <body>
-    <!-- Notifica audio -->
-    <div id="audioNotice" class="audio-notice">
-        💖 Clicca per attivare l'audio
-    </div>
-
-    <!-- Cornice di cuori che battono -->
-    <div class="heart-frame">
-        <div class="heart-corner heart-top-left">❤️</div>
-        <div class="heart-corner heart-top-right">❤️</div>
-        <div class="heart-corner heart-bottom-left">❤️</div>
-        <div class="heart-corner heart-bottom-right">❤️</div>
-    </div>
-
-    <!-- Elementi audio -->
-    <audio id="clickSound" preload="auto">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-sound-3080.mp3" type="audio/mpeg">
+    <!-- Audio Elements -->
+    <audio id="heartbeat" loop>
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-quick-2859.mp3" type="audio/mpeg">
     </audio>
-
-    <audio id="purrSound" preload="auto" loop>
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-cat-purring-close-1963.mp3" type="audio/mpeg">
+    
+    <audio id="catGrowl">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-angry-cartoon-kitty-meow-94.mp3" type="audio/mpeg">
     </audio>
-
-    <audio id="bgMusic" preload="auto" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-897.mp3" type="audio/mpeg">
+    
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-piano-reflections-668.mp3" type="audio/mpeg">
     </audio>
 
     <div id="click-area">
-        <!-- Titoli rimossi -->
+        <div class="main-wrapper">
+            <div class="heart-container">
+                <div class="heart-glow"></div>
+                <div class="big-heart">❤️</div>
+            </div>
 
-        <div class="cat-wrapper">
-            <div class="cat-halo"></div>
-            <img class="main-icon" src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiByeD0iMTAwIiBmaWxsPSIjMjVEMjg2Ii8+CjxwYXRoIGQ9Ik0xNDAgODBDMTQwIDYyLjM5MzggMTA3LjYwNiAzMCA3MCAzMEMzMi4zOTM4IDMwIDAgNjIuMzkzOCAwIDEwMEMwIDExOC4zMjcgOS4zMjc1NiAxMzQuNjQ2IDI0IDE0NC40NDhWMTY2TDUxLjU1MiAxNTUuNTUyQzYwLjA3MzYgMTU4LjQ2MiA2OS41Mjc2IDE2MCA4MCAxNjBDMTE3LjYwNiAxNjAgMTUwIDEyNy42MDYgMTUwIDkwSDE0MFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik02MCA3MEM1NS41ODE3IDcwIDUyIDczLjU4MTcgNTIgNzhWOTBDNTIgOTQuNDE4MyA1NS41ODE3IDk4IDYwIDk4SDgyQzg2LjQxODMgOTggOTAgOTQuNDE4MyA5MCA5MFY3OEM5MCA3My41ODE3IDg2LjQxODMgNzAgODIgNzBINjBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K'">
-            <img id="cat" src="https://cdn-icons-png.flaticon.com/512/220/220236.png" alt="Gattino" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iNDIiIGZpbGw9IiNGRkYiLz4KPHBhdGggZD0iTTQwIDUwQzQwIDUyLjIwOTEgMzguMjA5MSA1NCAzNiA1NEMzMy43OTA5IDU0IDMyIDUyLjIwOTEgMzIgNTBDMzIgNDcuNzkwOSAzMy43OTA5IDQ2IDM2IDQ2QzM4LjIwOTEgNDYgNDAgNDcuNzkwOSA0MCA1MFoiIGZpbGw9IiMzMzMiLz4KPHBhdGggZD0iTTg4IDUwQzg4IDUyLjIwOTEgODYuMjA5MSA1NCA4NCA1NEM4MS43OTA5IDU0IDgwIDUyLjIwOTEgODAgNTBDODAgNDcuNzkwOSA4MS43OTA5IDQ2IDg0IDQ2Qzg2LjIwOTEgNDYgODggNDcuNzkwOSA4OCA1MFoiIGZpbGw9IiMzMzMiLz4KPHBhdGggZD0iTTYwIDcwQzY1LjUyMjggNzAgNzAgNjUuNTIyOCA3MCA2MEg1MEM1MCA2NS41MjI4IDU0LjQ3NzIgNzAgNjAgNzBaIiBmaWxsPSIjRkY2Rjc3Ii8+CjxwYXRoIGQ9Ik00NSA4MEM0NSA4Mi43NjE0IDQyLjc2MTQgODUgNDAgODVDMzcuMjM4NiA4NSAzNSA4Mi43NjE0IDM1IDgwQzM1IDc3LjIzODYgMzcuMjM4NiA3NSA0MCA3NUM0Mi43NjE0IDc1IDQ1IDc3LjIzODYgNDUgODBaIiBmaWxsPSIjRkY2Rjc3Ii8+CjxwYXRoIGQ9Ik04NSA4MEM4NSA4Mi43NjE0IDgyLjc2MTQgODUgODAgODVDNzcuMjM4NiA4NSA3NSA4Mi43NjE0IDc1IDgwQzc1IDc3LjIzODYgNzcuMjM4NiA3NSA4MCA3NUM4Mi43NjE4IDc1IDg1IDc3LjIzODYgODUgODBaIiBmaWxsPSIjRkY2Rjc3Ii8+Cjwvc3ZnPgo='">
+            <div class="cat-container" id="catContainer">
+                <div class="cat-illustration">
+                    <div class="cat-tail"></div>
+                    <div class="cat-body"></div>
+                    <div class="cat-head">
+                        <div class="cat-ear cat-ear-left"></div>
+                        <div class="cat-ear cat-ear-right"></div>
+                        <div class="cat-eye cat-eye-left sleeping"></div>
+                        <div class="cat-eye cat-eye-right sleeping"></div>
+                        <div class="cat-nose"></div>
+                        <div class="cat-whisker whisker-left-1"></div>
+                        <div class="cat-whisker whisker-left-2"></div>
+                        <div class="cat-whisker whisker-right-1"></div>
+                        <div class="cat-whisker whisker-right-2"></div>
+                    </div>
+                    <div class="cat-paw paw-left"></div>
+                    <div class="cat-paw paw-right"></div>
+                    <div class="zzz zzz-1">z</div>
+                    <div class="zzz zzz-2">z</div>
+                    <div class="zzz zzz-3">Z</div>
+                </div>
+            </div>
         </div>
-
-        <button id="downloadBtn" class="download-btn">
-            📥 Scarica questa sorpresa
-        </button>
 
         <div class="tap-hint">
             <span class="tap-icon">👆</span>
-            <span>tocca per iniziare</span>
+            <span>tocca il gatto per iniziare</span>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const clickArea = document.getElementById("click-area");
-            const cat = document.getElementById("cat");
-            const clickSound = document.getElementById("clickSound");
-            const purrSound = document.getElementById("purrSound");
-            const bgMusic = document.getElementById("bgMusic");
-            const downloadBtn = document.getElementById("downloadBtn");
-            const audioNotice = document.getElementById("audioNotice");
+        const clickArea = document.getElementById("click-area");
+        const catContainer = document.getElementById("catContainer");
+        const bigHeart = document.querySelector(".big-heart");
+        
+        // Audio elements
+        const heartbeat = document.getElementById("heartbeat");
+        const catGrowl = document.getElementById("catGrowl");
+        const bgMusic = document.getElementById("bgMusic");
+        
+        let audioInitialized = false;
 
-            // Mostra notifica audio
-            audioNotice.style.display = 'block';
-            setTimeout(() => {
-                audioNotice.style.display = 'none';
-            }, 3000);
+        // Initialize audio on first interaction
+        function initAudio() {
+            if (!audioInitialized) {
+                audioInitialized = true;
+                
+                // Set volumes
+                heartbeat.volume = 0.4;
+                catGrowl.volume = 0.6;
+                bgMusic.volume = 0.25;
+                
+                // Start background music and heartbeat
+                bgMusic.play().catch(e => console.log('BG music will start on interaction'));
+                heartbeat.play().catch(e => console.log('Heartbeat will start on interaction'));
+            }
+        }
 
-            // Gestione audio interattiva
-            let audioEnabled = false;
+        // Add click listeners to initialize audio
+        document.addEventListener('click', initAudio, { once: true });
+        document.addEventListener('touchstart', initAudio, { once: true });
+
+        // Mostra Z quando la pagina si carica
+        catContainer.classList.add('active');
+
+        // Aggiungi sparkle casuali
+        function createSparkle() {
+            const sparkle = document.createElement("div");
+            sparkle.classList.add("sparkle");
+            sparkle.style.left = Math.random() * window.innerWidth + "px";
+            sparkle.style.top = Math.random() * window.innerHeight + "px";
+            document.body.appendChild(sparkle);
+
+            const duration = 1000 + Math.random() * 2000;
             
-            function enableAudio() {
-                if (!audioEnabled) {
-                    audioEnabled = true;
-                    bgMusic.volume = 0.3;
-                    purrSound.volume = 0.4;
-                    clickSound.volume = 0.5;
-                    
-                    bgMusic.play().catch(e => console.log('Audio background pronto'));
-                    audioNotice.style.display = 'none';
-                }
-            }
+            sparkle.animate([
+                { opacity: 0, transform: 'scale(0)' },
+                { opacity: 1, transform: 'scale(1)', offset: 0.5 },
+                { opacity: 0, transform: 'scale(0)' }
+            ], {
+                duration: duration,
+                easing: 'ease-in-out'
+            }).onfinish = () => sparkle.remove();
+        }
 
-            // Abilita audio al primo click
-            document.addEventListener('click', enableAudio);
-            document.addEventListener('touchstart', enableAudio);
+        setInterval(createSparkle, 300);
 
-            // Click area principale
-            clickArea.addEventListener("click", function(event) {
-                if (event.target === cat || event.target === downloadBtn) return;
-                enableAudio();
-                launchBall(event.clientX, event.clientY);
-            });
-
-            // Touch per mobile
-            clickArea.addEventListener("touchstart", function(event) {
-                if (event.target === cat || event.target === downloadBtn) return;
-                event.preventDefault();
-                const touch = event.touches[0];
-                enableAudio();
-                launchBall(touch.clientX, touch.clientY);
-            });
-
-            // Interazione con il gattino
-            cat.addEventListener("click", handleCatInteraction);
-            cat.addEventListener("touchstart", function(event) {
-                event.preventDefault();
-                handleCatInteraction();
-            });
-
-            function handleCatInteraction() {
-                enableAudio();
-                const rect = cat.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-
-                anime({
-                    targets: cat,
-                    scale: [1, 1.08, 1],
-                    duration: 800,
-                    easing: "easeInOutQuad"
-                });
-
-                // Attiva le fusa
-                if (purrSound.paused) {
-                    purrSound.currentTime = 0;
-                    purrSound.play().catch(e => {});
-                }
-
-                explosionAt(centerX, centerY);
-                heartsAt(centerX, centerY);
-                showMessage(centerX, centerY, "AUGURI 💖");
-            }
-
-            // Download funzionante
-            downloadBtn.addEventListener("click", function(event) {
-                event.stopPropagation();
-                enableAudio();
-                
-                // Crea il contenuto HTML completo
-                const htmlContent = `<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auguri Speciali 💖</title>
-    <style>
-        ${document.querySelector('style').innerHTML}
-    </style>
-</head>
-<body>
-    ${document.getElementById('click-area').outerHTML}
-    <div class="heart-frame">
-        <div class="heart-corner heart-top-left">❤️</div>
-        <div class="heart-corner heart-top-right">❤️</div>
-        <div class="heart-corner heart-bottom-left">❤️</div>
-        <div class="heart-corner heart-bottom-right">❤️</div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"><\/script>
-    <script>
-        ${document.querySelector('script').innerHTML}
-    <\/script>
-</body>
-</html>`;
-                
-                const blob = new Blob([htmlContent], { type: 'text/html' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'auguri-speciali.html';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-            });
-
-            // Funzioni di animazione
-            function launchBall(endX, endY) {
-                if (audioEnabled) {
-                    clickSound.currentTime = 0;
-                    clickSound.play().catch(e => {});
-                }
-
-                const ball = document.createElement("div");
-                ball.classList.add("ball");
-                document.body.appendChild(ball);
-
-                const startX = window.innerWidth / 2;
-                const startY = window.innerHeight + 30;
-
-                ball.style.left = startX + "px";
-                ball.style.top = startY + "px";
-
-                anime({
-                    targets: ball,
-                    left: endX,
-                    top: endY,
-                    duration: 1100,
-                    easing: "easeOutQuad",
-                    complete: () => {
-                        ball.remove();
-                        explosionAt(endX, endY);
-                        heartsAt(endX, endY);
-                        showMessage(endX, endY, "AUGURI 💫");
-                    }
-                });
-            }
-
-            function explosionAt(x, y) {
-                const boom = document.createElement("div");
-                boom.classList.add("explosion");
-                boom.style.left = x + "px";
-                boom.style.top = y + "px";
-                document.body.appendChild(boom);
-
-                anime({
-                    targets: boom,
-                    width: [20, 250],
-                    height: [20, 250],
-                    marginLeft: ["-10px", "-125px"],
-                    marginTop: ["-10px", "-125px"],
-                    opacity: [0.9, 0],
-                    easing: "easeOutExpo",
-                    duration: 900,
-                    complete: () => boom.remove()
-                });
-            }
-
-            function heartsAt(x, y) {
-                const heartCount = 20;
-                const heartTypes = ['❤️', '💖', '💕', '💗', '💓', '💞', '💘'];
-                const colors = ['#ff1493', '#ff69b4', '#ff007f', '#ff85a2', '#ffb6c1', '#ff0080'];
-                
-                for (let i = 0; i < heartCount; i++) {
-                    setTimeout(() => {
-                        const heart = document.createElement("div");
-                        heart.classList.add("heart-particle");
-                        
-                        // Cuore casuale
-                        const randomHeart = heartTypes[Math.floor(Math.random() * heartTypes.length)];
-                        heart.innerHTML = randomHeart;
-                        
-                        // Colore casuale
-                        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                        heart.style.color = randomColor;
-                        
-                        document.body.appendChild(heart);
-
-                        const angle = (Math.PI * 2 * i) / heartCount;
-                        const distance = 80 + Math.random() * 150;
-                        const finalX = x + Math.cos(angle) * distance;
-                        const finalY = y + Math.sin(angle) * distance;
-
-                        // Posizione iniziale casuale vicino al centro
-                        const startOffsetX = (Math.random() - 0.5) * 50;
-                        const startOffsetY = (Math.random() - 0.5) * 50;
-
-                        heart.style.left = (x + startOffsetX) + "px";
-                        heart.style.top = (y + startOffsetY) + "px";
-
-                        // Animazione con effetto "fluttuante"
-                        anime({
-                            targets: heart,
-                            left: finalX,
-                            top: finalY,
-                            opacity: [1, 0],
-                            scale: [0.8, 1.5],
-                            rotate: [0, Math.random() * 360],
-                            easing: "easeOutCubic",
-                            duration: 1800 + Math.random() * 800,
-                            complete: () => heart.remove()
-                        });
-
-                        // Animazione aggiuntiva per il battito
-                        anime({
-                            targets: heart,
-                            scale: [1, 1.3, 1],
-                            duration: 400,
-                            easing: "easeInOutSine",
-                            loop: 3,
-                            delay: Math.random() * 300
-                        });
-
-                    }, i * 60);
-                }
-            }
-
-            function showMessage(x, y, text) {
-                const msg = document.createElement("div");
-                msg.classList.add("message");
-                msg.textContent = text;
-                msg.style.left = x + "px";
-                msg.style.top = y + "px";
-                document.body.appendChild(msg);
-
-                anime({
-                    targets: msg,
-                    opacity: [0, 1],
-                    translateY: [20, -20],
-                    scale: [0.8, 1.2],
-                    duration: 1500,
-                    easing: "easeOutBack",
-                    complete: () => {
-                        anime({
-                            targets: msg,
-                            opacity: [1, 0],
-                            translateY: [-20, -50],
-                            duration: 1500,
-                            delay: 1200,
-                            easing: "easeInQuad",
-                            complete: () => msg.remove()
-                        });
-                    }
-                });
-            }
+        // Click area principale
+        clickArea.addEventListener("click", function(event) {
+            if (event.target.closest('.cat-container') || event.target.closest('.big-heart')) return;
+            launchBall(event.clientX, event.clientY);
         });
+
+        clickArea.addEventListener("touchstart", function(event) {
+            if (event.target.closest('.cat-container') || event.target.closest('.big-heart')) return;
+            event.preventDefault();
+            const touch = event.touches[0];
+            launchBall(touch.clientX, touch.clientY);
+        });
+
+        // Interazione con il cuore
+        bigHeart.addEventListener("click", handleHeartInteraction);
+        bigHeart.addEventListener("touchstart", function(event) {
+            event.preventDefault();
+            handleHeartInteraction();
+        });
+
+        function handleHeartInteraction() {
+            initAudio();
+            
+            const rect = bigHeart.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            bigHeart.animate([
+                { transform: 'scale(1)' },
+                { transform: 'scale(1.3)' },
+                { transform: 'scale(1)' }
+            ], {
+                duration: 600,
+                easing: 'ease-in-out'
+            });
+
+            explosionAt(centerX, centerY);
+            heartsAt(centerX, centerY);
+            showMessage(centerX, centerY, "TI AMO 💖");
+        }
+
+        // Interazione con il gatto
+        catContainer.addEventListener("click", handleCatInteraction);
+        catContainer.addEventListener("touchstart", function(event) {
+            event.preventDefault();
+            handleCatInteraction();
+        });
+
+        let catActive = false;
+        function handleCatInteraction() {
+            if (catActive) return;
+            catActive = true;
+            
+            initAudio();
+
+            const rect = catContainer.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            // Rimuovi le Z
+            catContainer.classList.remove('active');
+            
+            // Play cat growl sound
+            catGrowl.currentTime = 0;
+            catGrowl.play().catch(e => console.log('Cat sound error'));
+
+            // Animazione gatto
+            catContainer.animate([
+                { transform: 'scale(1) rotate(0deg)' },
+                { transform: 'scale(1.05) rotate(-5deg)' },
+                { transform: 'scale(1.1) rotate(5deg)' },
+                { transform: 'scale(1.05) rotate(-3deg)' },
+                { transform: 'scale(1) rotate(0deg)' }
+            ], {
+                duration: 1000,
+                easing: 'ease-in-out'
+            });
+
+            explosionAt(centerX, centerY);
+            heartsAt(centerX, centerY);
+            showMessage(centerX, centerY, "GRRR GRRR 😺");
+
+            setTimeout(() => {
+                catActive = false;
+                catContainer.classList.add('active');
+            }, 3000);
+        }
+
+        function launchBall(endX, endY) {
+            initAudio();
+            
+            const ball = document.createElement("div");
+            ball.classList.add("ball");
+            document.body.appendChild(ball);
+
+            const startX = window.innerWidth / 2;
+            const startY = window.innerHeight + 30;
+
+            ball.style.left = startX + "px";
+            ball.style.top = startY + "px";
+
+            ball.animate([
+                { left: startX + 'px', top: startY + 'px' },
+                { left: endX + 'px', top: endY + 'px' }
+            ], {
+                duration: 1100,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }).onfinish = () => {
+                ball.remove();
+                explosionAt(endX, endY);
+                heartsAt(endX, endY);
+                showMessage(endX, endY, "AUGURI 💫");
+            };
+        }
+
+        function explosionAt(x, y) {
+            const boom = document.createElement("div");
+            boom.classList.add("explosion");
+            boom.style.left = x + "px";
+            boom.style.top = y + "px";
+            document.body.appendChild(boom);
+
+            boom.animate([
+                { width: '20px', height: '20px', marginLeft: '-10px', marginTop: '-10px', opacity: 0.9 },
+                { width: '250px', height: '250px', marginLeft: '-125px', marginTop: '-125px', opacity: 0 }
+            ], {
+                duration: 900,
+                easing: 'cubic-bezier(0.19, 1, 0.22, 1)'
+            }).onfinish = () => boom.remove();
+        }
+
+        function heartsAt(x, y) {
+            const heartCount = 20;
+            const heartTypes = ['❤️', '💖', '💕', '💗', '💓', '💞', '💘'];
+            const colors = ['#ff1493', '#ff69b4', '#ff007f', '#ff85a2', '#ffb6c1', '#ff0080'];
+            
+            for (let i = 0; i < heartCount; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement("div");
+                    heart.classList.add("heart-particle");
+                    
+                    const randomHeart = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+                    heart.innerHTML = randomHeart;
+                    
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.color = randomColor;
+                    
+                    document.body.appendChild(heart);
+
+                    const angle = (Math.PI * 2 * i) / heartCount;
+                    const distance = 80 + Math.random() * 150;
+                    const finalX = x + Math.cos(angle) * distance;
+                    const finalY = y + Math.sin(angle) * distance;
+
+                    const startOffsetX = (Math.random() - 0.5) * 50;
+                    const startOffsetY = (Math.random() - 0.5) * 50;
+
+                    heart.style.left = (x + startOffsetX) + "px";
+                    heart.style.top = (y + startOffsetY) + "px";
+
+                    const animation = heart.animate([
+                        { 
+                            left: (x + startOffsetX) + 'px',
+                            top: (y + startOffsetY) + 'px',
+                            opacity: 1,
+                            transform: 'scale(0.8) rotate(0deg)'
+                        },
+                        { 
+                            left: finalX + 'px',
+                            top: finalY + 'px',
+                            opacity: 0,
+                            transform: `scale(1.5) rotate(${Math.random() * 360}deg)`
+                        }
+                    ], {
+                        duration: 1800 + Math.random() * 800,
+                        easing: 'cubic-bezier(0.33, 1, 0.68, 1)'
+                    });
+
+                    animation.onfinish = () => heart.remove();
+
+                }, i * 60);
+            }
+        }
+
+        function showMessage(x, y, text) {
+            const msg = document.createElement("div");
+            msg.classList.add("message");
+            msg.textContent = text;
+            msg.style.left = x + "px";
+            msg.style.top = y + "px";
+            msg.style.transform = 'translate(-50%, -50%)';
+            document.body.appendChild(msg);
+
+            const animation1 = msg.animate([
+                { opacity: 0, transform: 'translate(-50%, -30%) scale(0.8)' },
+                { opacity: 1, transform: 'translate(-50%, -50%) scale(1.2)' }
+            ], {
+                duration: 1500,
+                easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
+            });
+
+            animation1.onfinish = () => {
+                const animation2 = msg.animate([
+                    { opacity: 1, transform: 'translate(-50%, -50%) scale(1.2)' },
+                    { opacity: 0, transform: 'translate(-50%, -70%) scale(1)' }
+                ], {
+                    duration: 1500,
+                    delay: 1200,
+                    easing: 'ease-in'
+                });
+                
+                animation2.onfinish = () => msg.remove();
+            };
+        }
     </script>
 </body>
 </html>
